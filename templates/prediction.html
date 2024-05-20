@@ -1,0 +1,18 @@
+{% include 'layout.html' %}
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">Loan Approval Prediction</div>
+    <div class="card-body">
+      {% if msg %}{% if msg == 'Congratulations your loan has been approved!' or
+      msg.startswith('Congratulations') %}
+      <div class="alert alert-success" role="alert">{{msg}}</div>
+      {% else %}
+      <div class="alert alert-danger" role="alert">{{msg}}</div>
+      {% endif %} {% endif %}
+    </div>
+    <div class="card-footer text-muted">
+      <a href="/"> Click here to refill the prediction form </a>
+    </div>
+  </div>
+</div>

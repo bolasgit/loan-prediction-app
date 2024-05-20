@@ -1,0 +1,103 @@
+{% include 'layout.html' %}
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">Loan Approval Prediction</div>
+    <div class="card-body">
+      {% if msg %}{% if msg == 'Congratulations your loan has been approved!' or
+      msg.startswith('Congratulations') %}
+      <div class="alert alert-success" role="alert">{{msg}}</div>
+      {% else %}
+      <div class="alert alert-danger" role="alert">{{msg}}</div>
+      {% endif %} {% endif %}
+
+      <form method="POST" action="/predict/predict">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Kindly share your email</label>
+            <input type="email" class="form-control" name="email" required />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Gender</label>
+            <input type="text" class="form-control" name="gender" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Are you married?</label>
+            <input type="text" class="form-control" name="married" required />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>How many Dependents do you have?</label>
+            <input
+              type="text"
+              class="form-control"
+              name="dependents"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Are you educated?</label>
+            <input type="text" class="form-control" name="education" required />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>How long will you like to take the loan for?</label>
+            <input type="text" class="form-control" name="loan_term" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Do you have credit history?</label>
+            <input
+              type="text"
+              class="form-control"
+              name="credit_history"
+              required
+            />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>How much will you like to loan in USD?</label>
+            <input
+              type="text"
+              class="form-control"
+              name="loan_amount"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>What is the yearly income of your spouse?</label>
+            <input
+              type="text"
+              class="form-control"
+              name="personal_income"
+              required
+            />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>What is your yearly income?</label>
+            <input
+              type="text"
+              class="form-control"
+              name="spouse_income"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Check Status</button>
+      </form>
+    </div>
+  </div>
+</div>
