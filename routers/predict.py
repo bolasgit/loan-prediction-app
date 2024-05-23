@@ -42,6 +42,15 @@ async def predict_loan_status(
     personal_income=Form(...),
     spouse_income=Form(...),
 ):
+    gender = 0 if gender != "male" else 1
+    married = 0 if married != "Yes" else 1
+    credit_history = 0 if credit_history != "Yes" else 1
+    if dependents in ("1", "2"):
+        dependents = int(dependents) - 1
+    else:
+        dependents = 2
+    education = 0 if education != "Yes" else 1
+
     input_params = []
     gender = int(gender)
     married = int(married)
