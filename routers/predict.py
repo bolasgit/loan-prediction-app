@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import pickle
 from sklearn.linear_model import LogisticRegression
+import os
 
 sys.path.append("..")
 
@@ -13,6 +14,13 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 LR = LogisticRegression()
+
+# Load the model from the file system
+model_file_path = os.path.join("models", "ML_Model2.pkl")  # Adjust path as needed
+with open(model_file_path, "rb") as model_file:
+    # use pickle.load on the opened file object
+    model = pickle.load(model_file)
+
 
 router = APIRouter(
     prefix="/predict",
@@ -61,9 +69,9 @@ async def predict_loan_status(
     loan_amount_log = np.log(int(loan_amount))
     total_income = int(personal_income) + int(spouse_income)
 
-    file = "models\ML_Model2.pkl"
-    with open(file, "rb") as f:
-        k = pickle.load(f)
+    # file = "ML_Model2.pkl"
+    # with open(file, "rb") as f:
+    #     k = pickle.load(f)
 
     input_params = []
     input_params.extend(
@@ -83,7 +91,7 @@ async def predict_loan_status(
     input_data = np.array([input_params])
 
     # Make prediction using the trained model
-    loan_request_status = k.predict(input_data)[0]
+    loan_request_status = model.predict(input_data)[0]
 
     if loan_request_status == 1:
         msg = "Congratulations your loan has been approved!"
